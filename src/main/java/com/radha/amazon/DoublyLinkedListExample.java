@@ -1,12 +1,15 @@
-package com.radha.amazon;
+ package com.radha.amazon;
 
 import java.util.Objects;
 import java.util.Optional;
 
 public class DoublyLinkedListExample {
+
     private Object value;
     private  DoublyLinkedListExample previousNode;
     private DoublyLinkedListExample nextNode;
+    private DoublyLinkedListExample childNode;
+
 
     public DoublyLinkedListExample(Object value) {
         this.value = value;
@@ -19,6 +22,23 @@ public class DoublyLinkedListExample {
     public void setNextNode(DoublyLinkedListExample nextNode) {
         this.nextNode = nextNode;
     }
+
+    public void setChildNode(DoublyLinkedListExample childNode) {
+        this.childNode = childNode;
+    }
+
+    public DoublyLinkedListExample getChildNode() {
+        return this.childNode;
+    }
+
+    public DoublyLinkedListExample getNextNode() {
+        return nextNode;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
 
     public Optional<DoublyLinkedListExample> search(Object value){
 
@@ -87,6 +107,34 @@ public class DoublyLinkedListExample {
         this.nextNode = newNode;
     }
 
+    public void insertNodeInTheMiddle(DoublyLinkedListExample newNode){
+
+        DoublyLinkedListExample lastNode = newNode.getLastNode();
+        this.nextNode.setPreviousNode(lastNode);
+        lastNode.setNextNode(this.nextNode);
+        this.setNextNode(newNode);
+        newNode.setPreviousNode(this);
+
+
+
+    }
+
+    DoublyLinkedListExample getLastNode(){
+        /*
+        Step 1: for each node in the list
+                    1.1: if the node's nextNode is null
+                            1.1.1: return the node
+         */
+        DoublyLinkedListExample temp = this;
+        while (temp != null){
+            if(temp.getNextNode() == null){
+                return temp;
+            }
+            temp = temp.getNextNode();
+        }
+        return temp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -96,6 +144,7 @@ public class DoublyLinkedListExample {
                 Objects.equals(previousNode, that.previousNode) &&
                 Objects.equals(nextNode, that.nextNode);
     }
+
 
 
 }

@@ -5,7 +5,6 @@ import org.assertj.core.api.Assertions;
 
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 
 public class LinkedListExampleTest {
 

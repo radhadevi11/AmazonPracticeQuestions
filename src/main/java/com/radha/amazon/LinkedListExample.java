@@ -87,4 +87,9 @@ public class LinkedListExample {
     public int hashCode() {
         return Objects.hash(value, nextNode);
     }
+
+    @Override
+    public String toString() {
+        return this.value.toString();
+    }
 }
