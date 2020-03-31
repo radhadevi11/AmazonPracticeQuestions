@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.*;
 
 public class DoublyLinkedListExampleTest {
@@ -23,7 +24,7 @@ public class DoublyLinkedListExampleTest {
         search.setPreviousNode(secondNode);
         Optional<DoublyLinkedListExample> expected = Optional.of(search);
 
-        Assertions.assertThat(head.search(7)).isPresent().isEqualTo(expected);
+        assertThat(head.search(7)).isPresent().isEqualTo(expected);
 
     }
 
@@ -40,12 +41,12 @@ public class DoublyLinkedListExampleTest {
 
 
 
-        Assertions.assertThat(head.search(10)).isEmpty();
+        assertThat(head.search(10)).isEmpty();
 
     }
 
     @Test
-    public void remove() {
+    public void removeInTheMiddle() {
         DoublyLinkedListExample head = new DoublyLinkedListExample(5);
         DoublyLinkedListExample secondNode = new DoublyLinkedListExample(6);
         DoublyLinkedListExample thirdNode = new DoublyLinkedListExample(7);
@@ -60,7 +61,7 @@ public class DoublyLinkedListExampleTest {
         remove.setNextNode(thirdNode);
         Optional<DoublyLinkedListExample> expected = Optional.of(remove);
 
-        Assertions.assertThat(head.remove(6)).isPresent().isEqualTo(expected);
+        assertThat(head.remove(6)).isPresent().isEqualTo(expected);
 
     }
     @Test
@@ -77,7 +78,7 @@ public class DoublyLinkedListExampleTest {
         remove.setPreviousNode(secondNode);
         Optional<DoublyLinkedListExample> expected = Optional.of(remove);
 
-        Assertions.assertThat(head.remove(7)).isPresent().isEqualTo(expected);
+        assertThat(head.remove(7)).isPresent().isEqualTo(expected);
 
     }
 
@@ -93,7 +94,7 @@ public class DoublyLinkedListExampleTest {
         remove.setNextNode(secondNode);
         Optional<DoublyLinkedListExample> expected = Optional.of(remove);
 
-        Assertions.assertThat(head.remove(5)).isPresent().isEqualTo(expected);
+        assertThat(head.remove(5)).isPresent().isEqualTo(expected);
 
     }
     @Test
@@ -104,7 +105,7 @@ public class DoublyLinkedListExampleTest {
         DoublyLinkedListExample remove = new DoublyLinkedListExample(5);//why I did not get null pointer exception?
         Optional<DoublyLinkedListExample> expected = Optional.of(remove);
 
-        Assertions.assertThat(head.remove(5)).isPresent().isEqualTo(expected);
+        assertThat(head.remove(5)).isPresent().isEqualTo(expected);
 
     }
 
@@ -118,13 +119,13 @@ public class DoublyLinkedListExampleTest {
         secondNode.setNextNode(thirdNode);
 
 
-        Assertions.assertThat(head.remove(10)).isEmpty();
+        assertThat(head.remove(10)).isEmpty();
 
     }
 
 
     @Test
-    public void insertAfter() {
+    public void insertAfterInThMiddle() {
         DoublyLinkedListExample head = new DoublyLinkedListExample(5);
         DoublyLinkedListExample secondNode = new DoublyLinkedListExample(6);
         DoublyLinkedListExample thirdNode = new DoublyLinkedListExample(7);
@@ -139,7 +140,7 @@ public class DoublyLinkedListExampleTest {
         expected.setPreviousNode(secondNode);
 
 
-        Assertions.assertThat(secondNode.insertAfter(8)).isEqualTo(expected);
+        assertThat(secondNode.insertAfter(8)).isEqualTo(expected);
 
     }
 
@@ -151,8 +152,72 @@ public class DoublyLinkedListExampleTest {
         DoublyLinkedListExample expected = new DoublyLinkedListExample(8);
         expected.setPreviousNode(head);
 
-        Assertions.assertThat(head.insertAfter(8)).isEqualTo(expected);
+        assertThat(head.insertAfter(8)).isEqualTo(expected);
 
     }
+
+    @Test
+    public void testGetLastNode(){
+        DoublyLinkedListExample head = new DoublyLinkedListExample(5);
+        DoublyLinkedListExample secondNode = head.insertAfter(6);
+        DoublyLinkedListExample thirdNode = secondNode.insertAfter(7);
+
+        assertThat(head.getLastNode()).isEqualTo(thirdNode);
+    }
+
+    @Test
+    public void testGetLastNodeForSingleNode(){
+        DoublyLinkedListExample head = new DoublyLinkedListExample(5);
+
+        assertThat(head.getLastNode()).isEqualTo(head);
+    }
+
+    @Test
+    public void insertNodeInTheMiddle(){
+        DoublyLinkedListExample head = new DoublyLinkedListExample(5);
+        DoublyLinkedListExample secondNode = head.insertAfter(6);
+        DoublyLinkedListExample thirdNode = secondNode.insertAfter(7);
+
+        DoublyLinkedListExample newNode = new DoublyLinkedListExample(8);
+        DoublyLinkedListExample nextNode = newNode.insertAfter(9);
+
+        secondNode.insertNodeInTheMiddle(newNode);
+
+        assertThat(secondNode.getNextNode()).isEqualTo(newNode);
+        assertThat(newNode.getPreviousNode()).isEqualTo(secondNode);
+        assertThat(nextNode.getNextNode()).isEqualTo(thirdNode);
+        assertThat(thirdNode.getPreviousNode()).isEqualTo(nextNode);
+        assertThat(head.getLastNode()).isEqualTo(thirdNode);
+        assertThat(thirdNode.getPreviousNode()).isEqualTo(nextNode);
+    }
+
+    @Test
+    public void insertNodeInTheMiddleForSingleNode(){
+        DoublyLinkedListExample head = new DoublyLinkedListExample(5);
+
+        DoublyLinkedListExample newNode = new DoublyLinkedListExample(8);
+        DoublyLinkedListExample nextNode = newNode.insertAfter(9);
+
+        head.insertNodeInTheMiddle(newNode);
+
+        assertThat(head.getNextNode()).isEqualTo(newNode);
+        assertThat(newNode.getPreviousNode()).isEqualTo(head);
+        assertThat(head.getLastNode()).isEqualTo(nextNode);
+    }
+
+    @Test
+    public void insertNodeInTheMiddleForSingleNewNode(){
+        DoublyLinkedListExample head = new DoublyLinkedListExample(5);
+
+        DoublyLinkedListExample newNode = new DoublyLinkedListExample(8);
+
+        head.insertNodeInTheMiddle(newNode);
+
+        assertThat(head.getNextNode()).isEqualTo(newNode);
+        assertThat(newNode.getPreviousNode()).isEqualTo(head);
+        assertThat(head.getLastNode()).isEqualTo(newNode);
+    }
+
+
 
 }

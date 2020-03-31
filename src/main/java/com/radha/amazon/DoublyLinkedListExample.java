@@ -8,8 +8,6 @@ public class DoublyLinkedListExample {
     private Object value;
     private  DoublyLinkedListExample previousNode;
     private DoublyLinkedListExample nextNode;
-    private DoublyLinkedListExample childNode;
-
 
     public DoublyLinkedListExample(Object value) {
         this.value = value;
@@ -19,16 +17,12 @@ public class DoublyLinkedListExample {
         this.previousNode = previousNode;
     }
 
+    public DoublyLinkedListExample getPreviousNode() {
+        return previousNode;
+    }
+
     public void setNextNode(DoublyLinkedListExample nextNode) {
         this.nextNode = nextNode;
-    }
-
-    public void setChildNode(DoublyLinkedListExample childNode) {
-        this.childNode = childNode;
-    }
-
-    public DoublyLinkedListExample getChildNode() {
-        return this.childNode;
     }
 
     public DoublyLinkedListExample getNextNode() {
@@ -94,8 +88,9 @@ public class DoublyLinkedListExample {
             this.nextNode = newNode;
             newNode.previousNode = this;
         }
-
-        InsertInTheMiddle(newNode);
+        else{
+            InsertInTheMiddle(newNode);
+        }
 
         return newNode;
     }
@@ -108,13 +103,17 @@ public class DoublyLinkedListExample {
     }
 
     public void insertNodeInTheMiddle(DoublyLinkedListExample newNode){
-
         DoublyLinkedListExample lastNode = newNode.getLastNode();
-        this.nextNode.setPreviousNode(lastNode);
-        lastNode.setNextNode(this.nextNode);
-        this.setNextNode(newNode);
-        newNode.setPreviousNode(this);
-
+        if(this.nextNode == null){
+            this.nextNode = newNode;
+            newNode.previousNode = this;
+        }
+        else {
+            newNode.previousNode = this;
+            lastNode.nextNode = this.nextNode;
+            this.nextNode.previousNode = lastNode;
+            this.nextNode = newNode;
+        }
 
 
     }
@@ -145,6 +144,10 @@ public class DoublyLinkedListExample {
                 Objects.equals(nextNode, that.nextNode);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "DoublyLinkedListExample{" +
+                "value=" + value +
+                '}';
+    }
 }
