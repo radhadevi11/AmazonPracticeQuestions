@@ -73,5 +73,80 @@ public class StringExercise {
             }
         }
           return ' ';
-      }
+    }
+
+    public String removeSpecifiedCharacter(String sentence, String lettersToBeRemove){
+        /*
+        Step 0: convert lettersToBeRemove as map and set resultString as empty
+        Step 1: For each character in the sentence
+                    1.1: if map not contains the character
+                            1.1.1: concat the character with resultString
+        Step 2: return resultString
+
+         */
+          Map<Character, Character> characterMap = convertStringToMap(lettersToBeRemove);
+          String resultString = "";
+          for(int i = 0; i < sentence.length(); i++){
+              char curChar = sentence.charAt(i);
+              if(!characterMap.containsKey(curChar)){
+                  resultString += curChar;
+              }
+          }
+          return resultString;
+
+    }
+
+    Map<Character, Character> convertStringToMap(String str){
+        Map<Character, Character> characterMap = new HashMap<>();
+        for(int i = 0; i < str.length(); i++){
+            characterMap.put(str.charAt(i), str.charAt(i));
+        }
+        return characterMap;
+    }
+
+    public String reverseWords(String sentence){
+        /*
+        Step 0: set reverseString to empty
+        Step 1: Split each word in the sentence and store it in the stringArray
+        Step 2: For each word in the stringArray from last to first
+                    2.1 : concat the word with reverseString
+        Step 3: return reverseString
+         */
+        String reverseString = "";
+        String[] stringArray = sentence.split(" ");
+        for(int i = stringArray.length-1; i >= 0; i--){
+            if(isFirstWord(i)){
+                reverseString = concatWord(reverseString, stringArray, i, "");
+            }else{
+                reverseString = concatWord(reverseString, stringArray, i, " ");
+            }
+
+        }
+        return reverseString;
+    }
+
+    private String concatWord(String reverseString, String[] stringArray, int i, String delimiter) {
+        reverseString += stringArray[i]+delimiter;
+        return reverseString;
+    }
+
+    boolean isFirstWord(int i){
+        return i == 0;
+    }
+
+    public int ConvertStingToInt(String str){
+        try{
+            int num = Integer.parseInt(str);
+            return num;
+        }catch (NumberFormatException e){
+            throw new RuntimeException("Out of range", e);
+        }
+
+    }
+
+    public String convertIntToString(int num){
+
+            return new Integer(num).toString();
+
+    }
 }

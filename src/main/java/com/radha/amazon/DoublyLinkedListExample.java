@@ -134,6 +134,10 @@ public class DoublyLinkedListExample {
         return temp;
     }
 
+    public boolean isLastNode( DoublyLinkedListExample tail) {
+        return this.equals(tail) && this.getNextNode() == null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

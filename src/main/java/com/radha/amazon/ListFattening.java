@@ -1,21 +1,6 @@
 package com.radha.amazon;
 
-public class ListFattening extends DoublyLinkedListExample {
-
-    private DoublyLinkedListExample childNode;
-
-    public ListFattening(Object value) {
-        super(value);
-    }
-
-    public void setChildNode(DoublyLinkedListExample childNode) {
-        this.childNode = childNode;
-    }
-
-    public DoublyLinkedListExample getChildNode() {
-        return this.childNode;
-    }
-
+public class ListFattening  {
 
     DoublyLinkedListExample insertListBetweenTwoNodes(DoublyLinkedListExample fromNode, DoublyLinkedListExample toNode,
                                                       DoublyLinkedListExample headOfList){
@@ -89,7 +74,7 @@ public class ListFattening extends DoublyLinkedListExample {
         return null;
     }
 
-    DoublyLinkedListExample process(ListFattening head, ListFattening tail){
+    DoublyLinkedListExample process(DoublyLinkedListWithChild head, DoublyLinkedListWithChild tail){
         /*
         Look a node
             create a resultList
@@ -108,39 +93,49 @@ return resultList
 
          */
 
-        DoublyLinkedListExample resultList = new ListFattening(head.getValue());
+        DoublyLinkedListExample resultList = new DoublyLinkedListExample(head.getValue());
 
-        if(! hasChild()){
-            insertNodeInTheResultList(head, resultList);
-        }
-        if(hasChild()){
+        if(head.hasChild()){
             processChildNode(head, tail, resultList);
         }
-        if(! isLastNode(tail)){
+        else{
+            insertNodeInTheResultList(head, resultList);
+        }
+        if(! head.isLastNode(tail)){
             processNextNode(head, tail, resultList);
         }
 
         return resultList;
     }
 
-     boolean isLastNode( DoublyLinkedListExample tail) {
-        return this.equals(tail) && this.getNextNode() == null;
+/*
+process(1, 2)
+head => 1
+
+tail => 2
+
+resultList: 1
+
+*****************
+processChildNode(1, 2, [1])
+
+*****************
+
+ */
+
+
+
+     void processNextNode(DoublyLinkedListWithChild head, DoublyLinkedListWithChild tail, DoublyLinkedListExample resultList) {
+        DoublyLinkedListExample nextNode = process((DoublyLinkedListWithChild)head.getNextNode(), tail);
+        insertNodeInTheResultList( nextNode, resultList);
     }
 
-     boolean hasChild() {
-        return this.getChildNode() != null;
+     void processChildNode(DoublyLinkedListWithChild head, DoublyLinkedListWithChild tail, DoublyLinkedListExample resultList) {
+         DoublyLinkedListExample childNode = process(head.getChildNode(), tail);
+         insertNodeInTheResultList( childNode, resultList);
     }
 
-     void processNextNode(ListFattening head, ListFattening tail, DoublyLinkedListExample resultList) {
-        DoublyLinkedListExample nextNode = process((ListFattening)head.getNextNode(), tail);
-        insertNodeInTheResultList((ListFattening)nextNode, resultList);
-    }
-
-     void processChildNode(ListFattening head, ListFattening tail, DoublyLinkedListExample resultList) {
-        processNextNode(head, tail, resultList);
-    }
-
-     void insertNodeInTheResultList(ListFattening head, DoublyLinkedListExample resultList) {
+     void insertNodeInTheResultList(DoublyLinkedListExample head, DoublyLinkedListExample resultList) {
         resultList.insertNodeInTheMiddle(head);
     }
 }
