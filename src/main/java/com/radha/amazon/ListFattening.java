@@ -94,18 +94,26 @@ return resultList
          */
 
         DoublyLinkedListExample resultList = new DoublyLinkedListExample(head.getValue());
+        System.out.println("currently processing node value = "+ head.getValue()+
+                " Actual type = "+head.getClass().getName());
 
         if(head.hasChild()){
-            processChildNode(head, tail, resultList);
+            DoublyLinkedListWithChild childNode1 = head.getChildNode();
+            System.out.println("Going to call with child node value = "+ childNode1.getValue() +
+                    " Actual type = "+ childNode1.getClass().getName());
+            DoublyLinkedListExample flattenedChildNode = process(childNode1, tail);
+            resultList.insertNodeInTheMiddle(flattenedChildNode);
         }
-        else{
-            insertNodeInTheResultList(head, resultList);
+        DoublyLinkedListExample nextNode1 = head.getNextNode();
+        if(!head.equals(tail) && nextNode1 != null){
+            System.out.println("Going to call with next node value = "+ nextNode1.getValue() +
+                    " Actual type = "+ nextNode1.getClass().getName());
+            DoublyLinkedListExample flattenedNextNode = process((DoublyLinkedListWithChild) nextNode1, tail);
+            resultList.insertNodeInTheMiddle(flattenedNextNode);
         }
-        if(! head.isLastNode(tail)){
-            processNextNode(head, tail, resultList);
-        }
-
+        System.out.println("=========================");
         return resultList;
+
     }
 
 /*
@@ -123,19 +131,4 @@ processChildNode(1, 2, [1])
 
  */
 
-
-
-     void processNextNode(DoublyLinkedListWithChild head, DoublyLinkedListWithChild tail, DoublyLinkedListExample resultList) {
-        DoublyLinkedListExample nextNode = process((DoublyLinkedListWithChild)head.getNextNode(), tail);
-        insertNodeInTheResultList( nextNode, resultList);
-    }
-
-     void processChildNode(DoublyLinkedListWithChild head, DoublyLinkedListWithChild tail, DoublyLinkedListExample resultList) {
-         DoublyLinkedListExample childNode = process(head.getChildNode(), tail);
-         insertNodeInTheResultList( childNode, resultList);
-    }
-
-     void insertNodeInTheResultList(DoublyLinkedListExample head, DoublyLinkedListExample resultList) {
-        resultList.insertNodeInTheMiddle(head);
-    }
 }

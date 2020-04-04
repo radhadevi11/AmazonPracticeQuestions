@@ -80,10 +80,7 @@ public class DoublyLinkedListExample {
         list.nextNode.previousNode = list.previousNode;
         return Optional.of(list);
     }
-
-    public DoublyLinkedListExample insertAfter(Object value){
-        DoublyLinkedListExample newNode = new DoublyLinkedListExample(value);
-
+    public DoublyLinkedListExample insertAfter(DoublyLinkedListExample newNode) {
         if(this.nextNode == null){
             this.nextNode = newNode;
             newNode.previousNode = this;
@@ -91,8 +88,12 @@ public class DoublyLinkedListExample {
         else{
             InsertInTheMiddle(newNode);
         }
-
         return newNode;
+    }
+
+    public DoublyLinkedListExample insertAfter(Object value){
+        DoublyLinkedListExample newNode = new DoublyLinkedListExample(value);
+        return insertAfter(newNode);
     }
 
     private void InsertInTheMiddle(DoublyLinkedListExample newNode) {

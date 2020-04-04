@@ -9,42 +9,37 @@ import static org.junit.Assert.*;
 public class ListFatteningTest {
 
     @Test
-    public void process() {
+    public void testProcess() {
+        ListFattening listFattening = new ListFattening();
 
-    }
+        DoublyLinkedListWithChild node = new DoublyLinkedListWithChild("x");
+        node.insertAfter(new DoublyLinkedListExample("yy"));
+        node.getNextNode();
 
-    @Test
-    public void testIsLastNodeForTailNode() {
-        ListFattening head = new ListFattening(5);
-        DoublyLinkedListExample tail =  head.insertAfter(10);
+        DoublyLinkedListWithChild node1 = new DoublyLinkedListWithChild("1");
+        DoublyLinkedListWithChild node11 = new DoublyLinkedListWithChild("1.1");
+        node1.setChildNode(node11);
+        DoublyLinkedListWithChild node111 = new DoublyLinkedListWithChild("1.1.1");
+        node11.setChildNode(node111);
+        DoublyLinkedListWithChild node12 = new DoublyLinkedListWithChild("1.2");
+        node11.insertAfter(node12);
 
-        assertThat(((ListFattening)tail).isLastNode(tail)).isEqualTo(true);
 
-    }
+        DoublyLinkedListWithChild node2 = new DoublyLinkedListWithChild("2");
+        node1.insertAfter(node2);
+        DoublyLinkedListWithChild node21 = new DoublyLinkedListWithChild("2.1");
 
-    @Test
-    public void testHasChild() {
-        ListFattening head = new ListFattening(5);
-        head.setChildNode(new DoublyLinkedListExample(10));
+        node2.setChildNode(node21);
 
-        assertThat(head.hasChild()).isEqualTo(true);
-    }
-    @Test
-    public void testHasNotChild() {
-        ListFattening head = new ListFattening(5);
+        DoublyLinkedListWithChild node3 = new DoublyLinkedListWithChild("3");
+        node2.insertAfter(node3);
+        DoublyLinkedListWithChild node31 = new DoublyLinkedListWithChild("3.1");
+        node3.setChildNode(node31);
 
-        assertThat(head.hasChild()).isEqualTo(false);
-    }
+        DoublyLinkedListExample actual = listFattening.process(node1, node3);
 
-    @Test
-    public void processNextNode() {
-    }
+        System.out.println(actual);
 
-    @Test
-    public void processChildNode() {
-    }
 
-    @Test
-    public void insertNodeInTheResultList() {
     }
 }

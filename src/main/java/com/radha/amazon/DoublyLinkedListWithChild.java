@@ -19,4 +19,12 @@ public class DoublyLinkedListWithChild extends DoublyLinkedListExample {
     boolean hasChild() {
         return this.getChildNode() != null;
     }
+
+   /* public DoublyLinkedListWithChild insertAfter(Object value){
+        return (DoublyLinkedListWithChild)super.insertAfter(value);
+    }*/
+
+    public DoublyLinkedListExample insertAfter(DoublyLinkedListWithChild newNode) {
+        return super.insertAfter(newNode);
+    }
 }
