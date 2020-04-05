@@ -218,6 +218,16 @@ public class DoublyLinkedListExampleTest {
         assertThat(head.getLastNode()).isEqualTo(newNode);
     }
 
+    @Test
+    public void testInsertNodeInTheMiddleForDifferentList() {
+        DoublyLinkedListExample head = new DoublyLinkedListExample(1);
+        DoublyLinkedListExample secondNode = head.insertAfter(1.1);
 
+        DoublyLinkedListExample newNode = new DoublyLinkedListExample(2);
+        DoublyLinkedListExample nextNode = newNode.insertAfter(3);
 
+        head.insertNodeInTheMiddle(newNode);
+
+        head.printList();
+    }
 }

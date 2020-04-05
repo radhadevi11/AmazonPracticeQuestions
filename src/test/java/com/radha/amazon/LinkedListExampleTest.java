@@ -5,6 +5,8 @@ import org.assertj.core.api.Assertions;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
+
 
 public class LinkedListExampleTest {
 
@@ -19,7 +21,7 @@ public class LinkedListExampleTest {
 
         Optional<LinkedListExample> expected = Optional.of(secondNode);
 
-        Assertions.assertThat(head.search(6)).isPresent().isEqualTo(expected);
+        assertThat(head.search(6)).isPresent().isEqualTo(expected);
 
     }
 
@@ -33,7 +35,7 @@ public class LinkedListExampleTest {
         secondNode.setNextNode(thirdNode);
 
 
-        Assertions.assertThat(head.search(10)).isEmpty();
+        assertThat(head.search(10)).isEmpty();
 
     }
 
@@ -45,8 +47,8 @@ public class LinkedListExampleTest {
         head.setNextNode(secondNode);
         secondNode.setNextNode(thirdNode);
 
-        Assertions.assertThat(head.remove(6)).isPresent().isEqualTo(Optional.of(secondNode));
-        Assertions.assertThat(secondNode.getNextNode()).isNull();
+        assertThat(head.remove(6)).isPresent().isEqualTo(Optional.of(secondNode));
+        assertThat(secondNode.getNextNode()).isNull();
 
     }
     @Test
@@ -60,7 +62,7 @@ public class LinkedListExampleTest {
         LinkedListExample remove = new LinkedListExample(7);
         Optional<LinkedListExample> expected = Optional.of(remove);
 
-        Assertions.assertThat(head.remove(7)).isPresent().isEqualTo(expected);
+        assertThat(head.remove(7)).isPresent().isEqualTo(expected);
 
     }
 
@@ -76,7 +78,7 @@ public class LinkedListExampleTest {
         remove.setNextNode(secondNode);
         Optional<LinkedListExample> expected = Optional.of(remove);
 
-        Assertions.assertThat(head.remove(5)).isPresent().isEqualTo(expected);
+        assertThat(head.remove(5)).isPresent().isEqualTo(expected);
 
     }
     @Test
@@ -87,7 +89,7 @@ public class LinkedListExampleTest {
         LinkedListExample remove = new LinkedListExample(5);//why I did not got null pointer exception?
         Optional<LinkedListExample> expected = Optional.of(remove);
 
-        Assertions.assertThat(head.remove(5)).isPresent().isEqualTo(expected);
+        assertThat(head.remove(5)).isPresent().isEqualTo(expected);
 
     }
 
@@ -101,7 +103,7 @@ public class LinkedListExampleTest {
         secondNode.setNextNode(thirdNode);
 
 
-        Assertions.assertThat(head.remove(10)).isEmpty();
+        assertThat(head.remove(10)).isEmpty();
 
     }
 
@@ -118,7 +120,7 @@ public class LinkedListExampleTest {
         expected.setNextNode(thirdNode);
 
 
-        Assertions.assertThat(secondNode.insertAfter(8)).isEqualTo(expected);
+        assertThat(secondNode.insertAfter(8)).isEqualTo(expected);
 
     }
 
@@ -129,7 +131,41 @@ public class LinkedListExampleTest {
 
         LinkedListExample expected = new LinkedListExample(8);
 
-        Assertions.assertThat(head.insertAfter(8)).isEqualTo(expected);
+        assertThat(head.insertAfter(8)).isEqualTo(expected);
 
+    }
+
+    @Test
+    public void testGetLastNode() {
+        LinkedListExample head = new LinkedListExample(5);
+        LinkedListExample node2 = new LinkedListExample(10);
+        LinkedListExample node3 = new LinkedListExample(15);
+        head.setNextNode(node2);
+        node2.setNextNode(node3);
+
+        assertThat(head.getLastNode()).isEqualTo(node3);
+    }
+
+    @Test
+    public void testInsertLast(){
+        LinkedListExample head = new LinkedListExample(5);
+        LinkedListExample node2 = new LinkedListExample(10);
+        LinkedListExample node3 = new LinkedListExample(15);
+        head.setNextNode(node2);
+        node2.setNextNode(node3);
+
+        LinkedListExample newNode = new LinkedListExample(20);
+        head.insertLast(newNode);
+
+        assertThat(head.getLastNode()).isEqualTo(newNode);
+    }
+    @Test
+    public void testInsertLastInSingleNode(){
+        LinkedListExample head = new LinkedListExample(5);
+
+        LinkedListExample newNode = new LinkedListExample(20);
+        head.insertLast(newNode);
+
+        assertThat(head.getLastNode()).isEqualTo(newNode);
     }
 }

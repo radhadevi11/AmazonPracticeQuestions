@@ -110,10 +110,14 @@ public class DoublyLinkedListExample {
             newNode.previousNode = this;
         }
         else {
+            /*
+            point this node last node to new node
+             */
+            DoublyLinkedListExample tempNextNode = this.nextNode;
             newNode.previousNode = this;
-            lastNode.nextNode = this.nextNode;
-            this.nextNode.previousNode = lastNode;
             this.nextNode = newNode;
+            lastNode.nextNode = tempNextNode;
+            tempNextNode.previousNode = lastNode;
         }
 
 
@@ -135,18 +139,25 @@ public class DoublyLinkedListExample {
         return temp;
     }
 
-    public boolean isLastNode( DoublyLinkedListExample tail) {
-        return this.equals(tail) && this.getNextNode() == null;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DoublyLinkedListExample that = (DoublyLinkedListExample) o;
-        return Objects.equals(value, that.value) &&
+        return Objects.equals(value, that.value) /*&&
                 Objects.equals(previousNode, that.previousNode) &&
-                Objects.equals(nextNode, that.nextNode);
+                Objects.equals(nextNode, that.nextNode)*/;
+    }
+
+    void printList(){
+        System.out.println("Values in the list:");
+        DoublyLinkedListExample temp = this;
+        while (temp != null){
+            System.out.print(temp.getValue()+", ");
+            temp = temp.nextNode;
+        }
+        System.out.println();
+
     }
 
     @Override
@@ -154,5 +165,15 @@ public class DoublyLinkedListExample {
         return "DoublyLinkedListExample{" +
                 "value=" + value +
                 '}';
+    }
+
+    DoublyLinkedListExample insertLast(DoublyLinkedListExample newNode){
+        /*
+        Step 1: Get last node
+        Step 2: insertAfter newNode after last node
+         */
+
+        DoublyLinkedListExample lastNode = this.getLastNode();
+        return lastNode.insertAfter(newNode);
     }
 }

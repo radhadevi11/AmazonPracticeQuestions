@@ -38,7 +38,33 @@ public class ListFatteningTest {
 
         DoublyLinkedListExample actual = listFattening.process(node1, node3);
 
-        System.out.println(actual);
+        assertThat(actual).isEqualTo(new DoublyLinkedListExample("1"));
+        assertThat(actual.getLastNode()).isEqualTo(new DoublyLinkedListExample("3.1"));
+        actual.printList();
+
+
+    }
+
+    @Test
+    public void testProcessWithLessNodes() {
+        ListFattening listFattening = new ListFattening();
+
+        DoublyLinkedListWithChild node1 = new DoublyLinkedListWithChild("1");
+        DoublyLinkedListWithChild node11 = new DoublyLinkedListWithChild("1.1");
+        node1.setChildNode(node11);
+
+        DoublyLinkedListWithChild node2 = new DoublyLinkedListWithChild("2");
+        node1.insertAfter(node2);
+
+        DoublyLinkedListWithChild node3 = new DoublyLinkedListWithChild("3");
+        node2.insertAfter(node3);
+
+
+        DoublyLinkedListExample actual = listFattening.process(node1, node3);
+
+        assertThat(actual).isEqualTo(new DoublyLinkedListExample("1"));
+//       assertThat(node1.getLastNode()).isEqualTo(new DoublyLinkedListExample("3.1"));
+        actual.printList();
 
 
     }

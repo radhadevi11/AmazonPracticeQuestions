@@ -96,22 +96,33 @@ return resultList
         DoublyLinkedListExample resultList = new DoublyLinkedListExample(head.getValue());
         System.out.println("currently processing node value = "+ head.getValue()+
                 " Actual type = "+head.getClass().getName());
-
+        System.out.println("Starting:%%%%%%%%%%%%%");
+        resultList.printList();
         if(head.hasChild()){
             DoublyLinkedListWithChild childNode1 = head.getChildNode();
             System.out.println("Going to call with child node value = "+ childNode1.getValue() +
                     " Actual type = "+ childNode1.getClass().getName());
             DoublyLinkedListExample flattenedChildNode = process(childNode1, tail);
-            resultList.insertNodeInTheMiddle(flattenedChildNode);
+            System.out.println("Flattened Child Node ");
+            flattenedChildNode.printList();
+            resultList.insertLast(flattenedChildNode);
+            System.out.println("After Inserting Flattened Child Node ");
+            resultList.printList();
         }
         DoublyLinkedListExample nextNode1 = head.getNextNode();
         if(!head.equals(tail) && nextNode1 != null){
             System.out.println("Going to call with next node value = "+ nextNode1.getValue() +
                     " Actual type = "+ nextNode1.getClass().getName());
+
             DoublyLinkedListExample flattenedNextNode = process((DoublyLinkedListWithChild) nextNode1, tail);
-            resultList.insertNodeInTheMiddle(flattenedNextNode);
+            System.out.println("Flattened next node ");
+            flattenedNextNode.printList();
+            resultList.insertLast(flattenedNextNode);
+            System.out.println("After inserting flattened next node ");
+            resultList.printList();
         }
-        System.out.println("=========================");
+        resultList.printList();
+        System.out.println("Ending=========================");
         return resultList;
 
     }

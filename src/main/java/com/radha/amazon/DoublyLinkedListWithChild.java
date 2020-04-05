@@ -1,5 +1,7 @@
 package com.radha.amazon;
 
+import java.util.Objects;
+
 public class DoublyLinkedListWithChild extends DoublyLinkedListExample {
 
     private DoublyLinkedListWithChild childNode;
@@ -26,5 +28,19 @@ public class DoublyLinkedListWithChild extends DoublyLinkedListExample {
 
     public DoublyLinkedListExample insertAfter(DoublyLinkedListWithChild newNode) {
         return super.insertAfter(newNode);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DoublyLinkedListWithChild)) return false;
+        if (!super.equals(o)) return false;
+        DoublyLinkedListWithChild that = (DoublyLinkedListWithChild) o;
+        return getChildNode().equals(that.getChildNode());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getChildNode());
     }
 }

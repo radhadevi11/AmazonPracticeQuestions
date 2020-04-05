@@ -1,7 +1,6 @@
 package com.radha.amazon;
 
 
-import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -74,6 +73,33 @@ public class LinkedListExample {
         return newNode;
     }
 
+    public LinkedListExample insertLast(LinkedListExample newNode){
+        LinkedListExample lastNode = this.getLastNode();
+        lastNode.nextNode = newNode;
+        newNode.nextNode = null;
+        return newNode;
+    }
+
+    LinkedListExample getLastNode() {
+        LinkedListExample temp = this;
+        while (temp != null){
+            if(temp.nextNode == null){
+                return temp;
+            }
+            temp = temp.nextNode;
+        }
+        return temp;
+    }
+
+    void printList(){
+        LinkedListExample temp = this;
+        while (temp != null){
+            System.out.println("Node value = "+temp.getValue());
+            temp = temp.nextNode;
+        }
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,5 +117,9 @@ public class LinkedListExample {
     @Override
     public String toString() {
         return this.value.toString();
+    }
+
+    public Object getValue() {
+        return this.value;
     }
 }
