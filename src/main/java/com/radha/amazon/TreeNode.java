@@ -1,5 +1,7 @@
 package com.radha.amazon;
 
+import java.util.Objects;
+
 public class TreeNode {
     private int value;
     private TreeNode rightChild;
@@ -46,6 +48,27 @@ public class TreeNode {
             return this;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TreeNode)) return false;
+        TreeNode treeNode = (TreeNode) o;
+        return getValue() == treeNode.getValue();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getValue());
+    }
+
+    @Override
+    public String toString() {
+        return "TreeNode{" +
+                "value=" + value +
+                '}';
+    }
+
     /*
     Find Lowest Common Ancestor of 2 nodes:
     Step 1 : Find all the ancestors of the given first node and store in a1
