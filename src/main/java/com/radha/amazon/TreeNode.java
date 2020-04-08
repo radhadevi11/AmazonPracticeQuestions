@@ -5,6 +5,17 @@ public class TreeNode {
     private TreeNode rightChild;
     private TreeNode leftChild;
 
+    public int getValue() {
+        return value;
+    }
+
+    public TreeNode getRightChild() {
+        return rightChild;
+    }
+
+    public TreeNode getLeftChild() {
+        return leftChild;
+    }
 
     public TreeNode(int value) {
         this.value = value;
